@@ -1,27 +1,68 @@
-#container {
-  text-align: center;
+ion-content {
+  --ion-background-color: #101010;
+}
 
+
+.thermometer {
+  width: 40px; 
+  height: 280px; 
+  background-color: #ccc;
+  position: relative;
+  margin: 20px auto;
+  transition: height 0.5s ease; 
+  display: flex;
+  align-items: flex-end;
+  border-radius: 25px;
+  border: 10px solid #ccc; 
+}
+
+.animate .mercury {
+  transition: height 0.5s ease; 
+}
+
+.mercury {
+  width: 100%;
+  background-color: red;
+  border-radius: 25px;
+  z-index: 1;
+}
+
+.bulb {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ff0000;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: calc(1% - 30px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  top:98%;
+}
+.bulb-contorno {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background-color: #ccc;
+  position: absolute;
+  bottom: calc(1% - 30px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  top:93%;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.controls {
+  text-align: center;
+  margin-top: 20px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+#temperatureDisplay {
+  font-size: 18px;
+  margin-left: 10px;
 }
-
-#container a {
-  text-decoration: none;
+.styleWord{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: rgb(255, 255, 255);
 }

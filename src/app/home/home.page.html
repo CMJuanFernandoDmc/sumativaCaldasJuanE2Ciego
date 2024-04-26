@@ -1,20 +1,30 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      Termómetro
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content [ngStyle]="{'--ion-background-color': getColor()}">
+  <br><br><br>
+  <div class="thermometer" [class.animate]="animate">
+    <div class="mercury" [style.height]="mercuryHeight"></div>
+    <div class="bulb"></div>
+    <div class="bulb-contorno"></div>
+  </div>
+  <br><br><br>
+  <div class="controls">
+    <ion-item>
+      <ion-range min="0" max="100" step="1" value="1" (ionChange)="updateTemperature($event)" >
+        <ion-label slot="start" class="styleWord"><ion-icon slot="start" name="snow-outline"></ion-icon> 0°C</ion-label>
+        <ion-label slot="end" class="styleWord">100°C <ion-icon slot="end" name="sunny-outline"></ion-icon></ion-label>
+      </ion-range>
+    </ion-item>
+    <span id="temperatureDisplay">
+      <p class="styleWord">
+        {{ temperature }}°C
+      </p>
+    </span>
   </div>
 </ion-content>
