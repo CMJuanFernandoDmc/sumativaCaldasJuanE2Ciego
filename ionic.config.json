@@ -1,0 +1,7 @@
+{
+  "name": "sumativaCaldasJuanE2Ciego",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
