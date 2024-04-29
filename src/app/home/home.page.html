@@ -15,12 +15,6 @@
   </div>
   <br><br><br>
   <div class="controls">
-    <ion-item>
-      <ion-range min="0" max="100" step="1" value="1" (ionChange)="updateTemperature($event)" >
-        <ion-label slot="start" class="styleWord"><ion-icon slot="start" name="snow-outline"></ion-icon> 0°C</ion-label>
-        <ion-label slot="end" class="styleWord">100°C <ion-icon slot="end" name="sunny-outline"></ion-icon></ion-label>
-      </ion-range>
-    </ion-item>
     <span id="temperatureDisplay">
       <p class="styleWord">
         {{ temperature }}°C

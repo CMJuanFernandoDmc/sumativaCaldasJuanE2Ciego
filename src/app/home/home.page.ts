@@ -1,26 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Database, object, ref, onValue, Unsubscribe, set } from '@angular/fire/database';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit, OnDestroy{
   temperature: number = 0;
   mercuryHeight: string = '0%';
   animate: boolean = false;
 
-  constructor() {
+  firebaseSubscription: Unsubscribe | null = null;
+
+  constructor(private database: Database) {
     this.updateMercuryHeight();
   }
 
-  updateTemperature(event: any) {
-    this.temperature = event.target.value;
-    this.updateMercuryHeight();
-    this.animate = true;
-    setTimeout(() => {
-      this.animate = false;
-    }, 500);
+  ngOnDestroy(): void {
+    if (this.firebaseSubscription) {
+      this.firebaseSubscription = null;
+    }
+  }
+
+  async ngOnInit(){
+    await LocalNotifications.requestPermissions();//solicitar permisos de la app
+    await LocalNotifications.schedule({//Elaboracion del objeto notificacion
+      notifications: [
+        {
+          title: "Esta es una notificación emergente",
+          body: "Esta notificación debería ejecutarse en segundo plano pero no cuando lapp esté cerrada",
+          id: 1
+        }
+      ]
+    });
+
+    const route = ref(this.database, "/temperatura/intensidad");
+    this.firebaseSubscription = onValue(route, snapshot => {
+      const temperatureFromFirebase = snapshot.val();
+      if (temperatureFromFirebase !== null && !isNaN(temperatureFromFirebase)) {
+        this.temperature = temperatureFromFirebase;
+        this.updateMercuryHeight();
+      }
+    });
   }
 
   updateMercuryHeight() {
@@ -71,4 +94,6 @@ export class HomePage {
     const hex = c.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
   }
+
+  
 }
